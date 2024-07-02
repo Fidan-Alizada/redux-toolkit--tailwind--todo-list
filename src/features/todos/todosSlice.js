@@ -1,31 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const todoSlice = createSlice({
+const todosSlice = createSlice({
   name: 'todos',
   initialState: {
     todoList: [],
-    doneList: [],
+    doneList: []
   },
   reducers: {
     addItemToTodoList: (state, action) => {
       state.todoList.push(action.payload);
     },
     toggleDone: (state, action) => {
-      const { id } = action.payload;
-      const itemIndex = state.todoList.findIndex(todo => todo.id === id);
-      if (itemIndex !== -1) {
-        const item = state.todoList[itemIndex];
-        state.doneList.push(item);
-        state.todoList.splice(itemIndex, 1);
+      const todoIndex = state.todoList.findIndex(todo => todo.id === action.payload.id);
+      const doneIndex = state.doneList.findIndex(done => done.id === action.payload.id);
+
+      if (todoIndex >= 0) {
+        const [removed] = state.todoList.splice(todoIndex, 1);
+        state.doneList.push(removed);
+      } else if (doneIndex >= 0) {
+        const [removed] = state.doneList.splice(doneIndex, 1);
+        state.todoList.push(removed);
       }
     },
     removeItemFromDoneList: (state, action) => {
-      const idToRemove = action.payload;
-      state.doneList = state.doneList.filter(done => done.id !== idToRemove);
-    },
-  },
+      state.doneList = state.doneList.filter(item => item.id !== action.payload);
+    }
+  }
 });
 
-export const { addItemToTodoList, toggleDone, removeItemFromDoneList } = todoSlice.actions;
+export const { addItemToTodoList, toggleDone, removeItemFromDoneList } = todosSlice.actions;
 
-export default todoSlice.reducer;
+export default todosSlice.reducer;
