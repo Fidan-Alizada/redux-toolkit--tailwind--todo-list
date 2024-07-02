@@ -8,17 +8,17 @@ const TodoList = () => {
   const activeTasksCount = useSelector((state) => state.todos.todoList.length);
   const dispatch = useDispatch();
 
-  const [isOpen, setIsOpen] = useState(false); // Состояние для открытия/закрытия списка
+  const [isOpen, setIsOpen] = useState(false); 
 
   const handleToggleDone = (id) => {
     dispatch(toggleDone({ id }));
   };
 
   return (
-    <div className="relative w-1/2 p-4 bg-gray-100 rounded-lg shadow-lg">
+    <div className="relative w-1/2 p-4 bg-gradient-to-r from-yellow-200 via-red-200 to-pink-200 rounded-lg shadow-lg">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold mb-4 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-          To Do List <span className="badge bg-blue-500 text-white">{activeTasksCount}</span>
+          To Do List <span className="badge bg-green-500 text-white px-2 py-1 rounded-full">{activeTasksCount}</span>
         </h2>
         <span className="absolute top-0 right-0 mr-4 mt-2 text-xl cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}>
@@ -27,10 +27,10 @@ const TodoList = () => {
       </div>
       <ul className={`transition-all overflow-hidden ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
         {todoList.map((item) => (
-          <li key={item.id} className="flex justify-between items-center bg-white p-4 mb-4 rounded-lg shadow">
-            <span className="text-lg">{item.text}</span>
+          <li key={item.id} className="flex justify-between items-center bg-white p-4 mb-4 rounded-lg shadow hover:shadow-md transition duration-300">
+            <span className="text-lg text-gray-800">{item.text}</span>
             <DoneIcon
-              className="cursor-pointer text-green-500 hover:text-green-700"
+              className="cursor-pointer text-blue-500 hover:text-blue-700"
               onClick={() => handleToggleDone(item.id)}
             />
           </li>

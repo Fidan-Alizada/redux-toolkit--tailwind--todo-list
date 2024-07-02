@@ -23,10 +23,10 @@ const TodoInput = () => {
         type="text"
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
-        className="border rounded px-2 py-1 w-full max-w-lg"
+        className="border rounded px-2 py-1 w-full max-w-lg focus:outline-none focus:ring focus:border-pink-500"
         placeholder="Add Todo"
       />
-      <button type="submit" className="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Send</button>
+      <button type="submit" className="ml-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition duration-300 ease-in-out">Add</button>
     </form>
   );
 };
